@@ -107,6 +107,12 @@ bool LivoxLidarConfigParser::ParseUserConfigs(const rapidjson::Document &doc,
                   << IpNumToString(user_config.handle) << std::endl;
       }
     }
+    if (!config.HasMember("frame_id")) {
+      user_config.frame_id = "livox_lidar";
+      std::cout << "No frame id was given, set to default of 'livox_lidar'" << std::endl;
+    } else {
+      user_config.frame_id = static_cast<std::string>(config["frame_id"].GetString());
+    }
     user_config.set_bits = 0;
     user_config.get_bits = 0;
 
